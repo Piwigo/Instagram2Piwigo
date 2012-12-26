@@ -42,4 +42,5 @@ $lang['Successfully logged in to you Instagram account'] = 'Instagram \'de başa
 $lang['%d elements ready for importation'] = 'İçe aktarmak için %d öğe hazır';
 $lang['Logged out'] = 'Oturum kapatıldı';
 $lang['Photo "%s" imported'] = '"%s" fotoğraf içe aktarıldı.';
+$lang['List my pictures'] = 'Resimlerimi listele';
 ?>
