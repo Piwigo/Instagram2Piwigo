@@ -42,4 +42,5 @@ $lang['Import'] = 'Importer';
 $lang['Import options'] = 'Importindstillinger';
 $lang['List pictures of this album'] = 'List billeder i dette album';
 $lang['Logged in as'] = 'Logget som';
+$lang['List my pictures'] = 'Vis liste over mine billeder';
 ?>
