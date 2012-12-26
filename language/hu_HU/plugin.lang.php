@@ -42,4 +42,5 @@ $lang['%d pictures imported'] = '%d kép importálva';
 $lang['(%d photos)'] = '(%d fénykép)';
 $lang['API not authenticated'] = 'API nincs hitelesítve';
 $lang['Begin transfer'] = 'Átvitel indítása';
+$lang['List my pictures'] = 'Képlistám';
 ?>
