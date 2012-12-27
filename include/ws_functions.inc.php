@@ -62,7 +62,7 @@ function ws_images_addInstagram($param, &$service)
     'title' => $photo_f->getCaption(),
     'url' => $photo_f->getStandardRes()->url,
     'date' => $photo_f->getCreatedTime('Y-d-m H:i:s'),
-    'username' => $photo_f->getUser()->getFullName(),
+    'username' => $photo_f->getUser()->getFullName(true),
     'tags' => $photo_f->getTags()->toArray(),
     );
   $photo = array_merge($param, $photo);
