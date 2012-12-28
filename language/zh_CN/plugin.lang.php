@@ -42,4 +42,5 @@ $lang['%d albums'] = '%d个相册';
 $lang['%d elements ready for importation'] = '将要导入%d个元素';
 $lang['%d pictures are not displayed because already existing in the database.'] = '%d张图片没有显示，因为已经存在于数据库中。';
 $lang['%d pictures imported'] = '已经导入%d张图片';
+$lang['List my pictures'] = '列出我的相片';
 ?>
