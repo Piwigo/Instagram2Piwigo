@@ -42,4 +42,5 @@ $lang['Successfully logged in to you Instagram account'] = 'Logueado con éxito 
 $lang['%d elements ready for importation'] = '%d elementos listos para importar';
 $lang['Logged out'] = 'Sesión cerrada';
 $lang['Photo "%s" imported'] = 'Foto "%s" importada';
+$lang['List my pictures'] = 'Enumerar mis fotos';
 ?>
