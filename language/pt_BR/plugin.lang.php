@@ -42,4 +42,5 @@ $lang['Import'] = 'Importa';
 $lang['Import options'] = 'opções de importação';
 $lang['List pictures of this album'] = 'Lista fotos nesse álbum';
 $lang['Logged in as'] = 'Logado como';
+$lang['List my pictures'] = 'Liste minhas fotos';
 ?>
