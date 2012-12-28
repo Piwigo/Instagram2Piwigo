@@ -42,4 +42,5 @@ $lang['Successfully logged in to you Instagram account'] = 'Esat veiksmīgi piet
 $lang['Logged out'] = 'Izgājis no sistēmas';
 $lang['Photo "%s" imported'] = 'Importēts "%s" fotogrāfiju';
 $lang['%d elements ready for importation'] = '%d elementi gatavi importam';
+$lang['List my pictures'] = 'Uzskaitīt manas bildes';
 ?>
