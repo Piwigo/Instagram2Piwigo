@@ -150,6 +150,25 @@ class Instagram_User extends Instagram_Core_BaseObjectAbstract {
     public function getMedia( array $params = null ) {
         return new Instagram_Collection_MediaCollection( $this->proxy->getUserMedia( $this->getApiId(), $params ), $this->proxy );
     }
+    
+    /**
+     * Get all user's media
+     *
+     * @return Instagram_Collection_MediaCollection
+     * @access public
+     */
+    public function getAllMedia() {
+        $main = $this->getMedia();
+        $next = $main->getNext();
+        
+        while ( $next !== null ) {
+            $temp = $this->getMedia( array('max_id' => $next) );
+            $next = $temp->getNext();
+            $main->addData( $temp );
+        }
+        
+        return $main;
+    }
 
     /**
      * Get the users that the user follows

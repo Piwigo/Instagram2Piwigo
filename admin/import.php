@@ -99,13 +99,13 @@ switch ($_GET['action'])
       'username' => $username,
       'profile_url' => 'http://instagram.com/'.$username,
       'logout_url' => INSTAG_ADMIN . '-import&amp;action=logout',
-      'list_photos_url' => INSTAG_ADMIN . '-import&amp;action=list_all',
+      'list_photos_url' => INSTAG_ADMIN . '-import&amp;action=list_photos',
       ));
     break;
   }
   
   // list photos
-  case 'list_all':
+  case 'list_photos':
   {
     $self_url = INSTAG_ADMIN . '-import&amp;action=list_photos';
     $instagram_prefix = 'instagram-'.$username.'-';
@@ -116,7 +116,7 @@ switch ($_GET['action'])
     if (isset($_GET['display'])) $page['display'] = $_GET['display']=='all' ? 500 : intval($_GET['display']);
     else                         $page['display'] = 20;
     
-    $all_photos = $current_user->getFeed();
+    $all_photos = $current_user->getAllMedia();
     
     // get existing photos
     $query = '

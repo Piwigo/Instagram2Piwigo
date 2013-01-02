@@ -29,7 +29,7 @@ jQuery('.load').click(function() {
 </p>
 
 {* <!-- PHOTOS LIST --> *}
-{elseif $ACTION == 'list_all'}
-{include file=$INSTAG_ABS_PATH|@cat:'admin/template/import.list_all.tpl'}
+{elseif $ACTION == 'list_photos'}
+{include file=$INSTAG_ABS_PATH|@cat:'admin/template/import.list_photos.tpl'}
 
 {/if}
