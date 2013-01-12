@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 $lang['How do I get my Instagram Client ID?'] = 'Com puc obtenir el meu «Client ID» d\'Instagram?';
-$lang['Import'] = 'Importar';
+$lang['Import'] = 'Importa';
 $lang['Import options'] = 'Opcions d\'importació';
 $lang['Instagram logins'] = 'Inici de sessió d\'Instagram';
-$lang['List my pictures'] = 'Llistar les meves fotos';
+$lang['List my pictures'] = 'Llista les meves fotos';
 $lang['Logged in as'] = 'Autenticat com';
 $lang['Logged out'] = 'Sessió finalitzada';
 $lang['No download method available'] = 'Cap mètode de descàrrega disponible';
 $lang['One picture is not displayed because already existing in the database.'] = 'Una foto no és mostrada perquè ja existeix a la base de dades.';
 $lang['Open Instagram page in a new tab'] = 'Obriu la pàgina d\'Instagram en una nova pestanya';
-$lang['Photo "%s" imported'] = 'Imatge "%s" importada';
+$lang['Photo "%s" imported'] = 'Foto "%s" importada';
 $lang['Please fill your API keys on the configuration tab'] = 'Ompliu les vostres claus API a la pestanya de configuració';
 $lang['Processing...'] = 'Processant...';
 $lang['Successfully logged in to you Instagram account'] = 'Us heu connectat correctament al vostre compte d\'Instagram';
 $lang['%d albums'] = '%d àlbums';
-$lang['%d pictures are not displayed because already existing in the database.'] = 'No es mostren %d fotos perquè ja existeixen a la base de dades.';
+$lang['%d pictures are not displayed because already existing in the database.'] = 'No es mostren %d imatges ja que ja existeixen a la base de dades.';
 $lang['%d pictures imported'] = '%d fotos importades';
 $lang['(%d photos)'] = '(%d fotos)';
 $lang['API not authenticated'] = 'API no autenticada';
-$lang['Begin transfer'] = 'Inicieu la transferència';
+$lang['Begin transfer'] = 'Inicia la transferència';
 $lang['Fill these fields from Instagram datas'] = 'Ompliu aquests camps de dades d\'Instagram';
 ?>
