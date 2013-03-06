@@ -41,6 +41,6 @@ $lang['Processing...'] = 'Spracovávam...';
 $lang['Successfully logged in to you Instagram account'] = 'Úspešne prihlásený do Vášho Instagram konta';
 $lang['%d elements ready for importation'] = '%d prvky/prvkov pripravených pre import';
 $lang['Logged out'] = 'Odhlásený';
-$lang['Photo "%s" imported'] = 'Fotka %d importovaná';
+$lang['Photo "%s" imported'] = 'Fotka "%s" importovaná';
 $lang['List my pictures'] = 'Zobraziť moje fotky';
 ?>
