@@ -38,7 +38,8 @@ function plugin_uninstall()
 {
   global $conf;
   
-  pwg_query('DELETE FROM `'. CONFIG_TABLE .'` WHERE param = "Instagram2Piwigo" LIMIT 1;');
+  pwg_query('DELETE FROM `'. CONFIG_TABLE .'` WHERE param = "Instagram2Piwigo";');
+  unset($conf['Instagram2Piwigo']);
   
   rrmdir($conf['data_location'].'instagram_cache/');
 }
