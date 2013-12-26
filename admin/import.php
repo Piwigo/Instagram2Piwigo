@@ -1,19 +1,19 @@
 <?php
-if (!defined('INSTAG_PATH')) die('Hacking attempt!');
+defined('INSTAG_PATH') or die('Hacking attempt!');
 
 set_time_limit(600);
 
 include_once(INSTAG_PATH . 'include/functions.inc.php');
 
 // check API parameters and connect to instagram
-if ( empty($conf['Instagram2Piwigo']['api_key']) or empty($conf['Instagram2Piwigo']['secret_key']) )
+if (empty($conf['Instagram2Piwigo']['api_key']) or empty($conf['Instagram2Piwigo']['secret_key']))
 {
-  array_push($page['warnings'], l10n('Please fill your API keys on the configuration tab'));
+  $page['warnings'][] = l10n('Please fill your API keys on the configuration tab');
   $_GET['action'] = 'error';
 }
 else if (!function_exists('curl_init'))
 {
-  array_push($page['errors'], l10n('No download method available').' (cURL)');
+  $page['errors'][] = l10n('No download method available').' (cURL)';
   $_GET['action'] = 'error';
 }
 else
@@ -24,10 +24,10 @@ else
     require_once(INSTAG_PATH . 'include/Instagram/Auth.php');
     
     $auth_config = array(
-        'client_id'         => $conf['Instagram2Piwigo']['api_key'],
-        'client_secret'     => $conf['Instagram2Piwigo']['secret_key'],
-        'redirect_uri'      => get_absolute_root_url() . INSTAG_ADMIN . '-import',
-    );
+      'client_id'     => $conf['Instagram2Piwigo']['api_key'],
+      'client_secret' => $conf['Instagram2Piwigo']['secret_key'],
+      'redirect_uri'  => get_absolute_root_url() . INSTAG_ADMIN . '-import',
+      );
     
     $auth = new Instagram_Auth($auth_config);
   
@@ -56,7 +56,10 @@ else
 }
 
 
-if (!isset($_GET['action'])) $_GET['action'] = 'main';
+if (!isset($_GET['action']))
+{
+  $_GET['action'] = 'main';
+}
 
 
 switch ($_GET['action'])
@@ -141,8 +144,11 @@ SELECT id, file
     
     if ($duplicates>0)
     {
-      $page['infos'][] = '<a href="admin.php?page=batch_manager&amp;prefilter=instagram">'
-          .l10n_dec('One picture is not displayed because already existing in the database.', '%d pictures are not displayed because already existing in the database.', $duplicates)
+      $page['infos'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-instagram">'
+          .l10n_dec(
+            'One picture is not displayed because already existing in the database.',
+            '%d pictures are not displayed because already existing in the database.',
+            $duplicates)
         .'</a>';
     }
     
@@ -194,7 +200,7 @@ SELECT id, name, uppercats, global_rank
   {
     if (isset($_POST['done']))
     {
-      $_SESSION['page_infos'][] = sprintf(l10n('%d pictures imported'), $_POST['done']);
+      $_SESSION['page_infos'][] = l10n('%d pictures imported', $_POST['done']);
     }
     redirect(INSTAG_ADMIN . '-import');
   }
@@ -203,6 +209,4 @@ SELECT id, name, uppercats, global_rank
 
 $template->assign('ACTION', $_GET['action']);
 
-$template->set_filename('Instagram2Piwigo', dirname(__FILE__) . '/template/import.tpl');
-
-?>
+$template->set_filename('Instagram2Piwigo', realpath(INSTAG_PATH . 'admin/template/import.tpl'));

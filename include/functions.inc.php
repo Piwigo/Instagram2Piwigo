@@ -1,17 +1,5 @@
 <?php
-if (!defined('INSTAG_PATH')) die('Hacking attempt!');
-
-/**
- * test if a download method is available
- * @return: bool
- */
-if (!function_exists('test_remote_download'))
-{
-  function test_remote_download()
-  {
-    return function_exists('curl_init') || ini_get('allow_url_fopen');
-  }
-}
+defined('INSTAG_PATH') or die('Hacking attempt!');
 
 /**
  * download a remote file
@@ -119,5 +107,3 @@ if (!function_exists('download_remote_file'))
     return false;
   }
 }
-
-?>

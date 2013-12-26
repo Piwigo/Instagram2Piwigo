@@ -1,5 +1,5 @@
 <?php
-if (!defined('INSTAG_PATH')) die('Hacking attempt!');
+defined('INSTAG_PATH') or die('Hacking attempt!');
 
 function instagram_add_ws_method($arr)
 {
@@ -13,7 +13,9 @@ function instagram_add_ws_method($arr)
       'category' => array(),
       'fills' => array('default' =>null),
       ),
-    'Used by Instagram2Piwigo'
+    'Used by Instagram2Piwigo',
+    null,
+    array('hidden'=>true)
     );
 }
 
@@ -25,9 +27,8 @@ function ws_images_addInstagram($param, &$service)
   }
   
   global $conf;
-  $conf['Instagram2Piwigo'] = unserialize($conf['Instagram2Piwigo']);
   
-  if ( empty($conf['Instagram2Piwigo']['api_key']) or empty($conf['Instagram2Piwigo']['secret_key']) )
+  if (empty($conf['Instagram2Piwigo']['api_key']) or empty($conf['Instagram2Piwigo']['secret_key']))
   {
     return new PwgError(null, l10n('Please fill your API keys on the configuration tab'));
   }
@@ -64,6 +65,7 @@ function ws_images_addInstagram($param, &$service)
     'date' => $photo_f->getCreatedTime('Y-d-m H:i:s'),
     'username' => $photo_f->getUser()->getFullName(true),
     'tags' => $photo_f->getTags()->toArray(),
+    'location' => $photo_f->getLocation(),
     );
   $photo = array_merge($param, $photo);
   
@@ -94,9 +96,14 @@ function ws_images_addInstagram($param, &$service)
     $photo['fills'] = explode(',', $photo['fills']);
   
     $updates = array();
-    if (in_array('fill_name', $photo['fills']))   $updates['name'] = $photo['title'];
+    if (in_array('fill_name', $photo['fills']))   $updates['name'] = pwg_db_real_escape_string($photo['title']);
     if (in_array('fill_taken', $photo['fills']))  $updates['date_creation'] = $photo['date'];
-    if (in_array('fill_author', $photo['fills'])) $updates['author'] = $photo['username'];
+    if (in_array('fill_author', $photo['fills'])) $updates['author'] = pwg_db_real_escape_string($photo['username']);
+    if (in_array('fill_geotag', $photo['fills']) and !empty($photo['location']) )
+    {
+      $updates['latitude'] = pwg_db_real_escape_string($photo['location']->getLat());
+      $updates['longitude'] = pwg_db_real_escape_string($photo['location']->getLng());
+    }
     
     if (count($updates))
     {
@@ -107,14 +114,12 @@ function ws_images_addInstagram($param, &$service)
         );
     }
     
-    if ( !empty($photo['tags']) and in_array('fill_tags', $photo['fills']) )
+    if (!empty($photo['tags']) and in_array('fill_tags', $photo['fills']))
     {
       $raw_tags = implode(',', $photo['tags']);
       set_tags(get_tag_ids($raw_tags), $photo['image_id']);
     }
   }
   
-  return sprintf(l10n('Photo "%s" imported'), $photo['title']);
+  return l10n('Photo "%s" imported', $photo['title']);
 }
-
-?>

@@ -1,9 +1,8 @@
 <?php
-if (!defined('INSTAG_PATH')) die('Hacking attempt!');
+defined('INSTAG_PATH') or die('Hacking attempt!');
 
 global $template, $page, $conf;
 
-$conf['Instagram2Piwigo'] = unserialize($conf['Instagram2Piwigo']);
 load_language('plugin.lang', INSTAG_PATH);
 
 if (!file_exists(INSTAG_FS_CACHE))
@@ -30,6 +29,5 @@ $template->assign(array(
   'INSTAG_ABS_PATH'=> dirname(__FILE__).'/',
   'INSTAG_ADMIN' => INSTAG_ADMIN,
   ));
-$template->assign_var_from_handle('ADMIN_CONTENT', 'Instagram2Piwigo');
 
-?>
+$template->assign_var_from_handle('ADMIN_CONTENT', 'Instagram2Piwigo');

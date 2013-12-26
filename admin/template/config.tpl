@@ -4,7 +4,7 @@
 
 <form method="post" action="" class="properties">
 <fieldset>
-  <legend>{'Instagram logins'|@translate}</legend>
+  <legend>{'Instagram logins'|translate}</legend>
   
   <ul>
     <li>
@@ -23,10 +23,10 @@
   </ul>
 </fieldset>
 
-<p><input type="submit" name="save_config" value="{'Save Settings'|@translate}"></p>
+<p><input type="submit" name="save_config" value="{'Save Settings'|translate}"></p>
 
 <fieldset>
-  <legend>{'How do I get my Instagram Client ID ?'|@translate}</legend>
+  <legend>{'How do I get my Instagram Client ID ?'|translate}</legend>
   
   <p><b>OAuth redirect_uri :</b> <span style="font-family:monospace;font-size:14px;">{$INSTAG_CALLBACK}</span></p>
   {$INSTAG_HELP_CONTENT}

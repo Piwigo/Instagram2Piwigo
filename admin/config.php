@@ -1,5 +1,5 @@
 <?php
-if (!defined('INSTAG_PATH')) die('Hacking attempt!');
+defined('INSTAG_PATH') or die('Hacking attempt!');
 
 if (isset($_POST['save_config']))
 {
@@ -7,6 +7,7 @@ if (isset($_POST['save_config']))
     'api_key' => trim($_POST['api_key']),
     'secret_key' => trim($_POST['secret_key']),
     );
+
   unset($_SESSION['phpinstagram_auth_token']);
   conf_update_param('Instagram2Piwigo', serialize($conf['Instagram2Piwigo']));
   $page['infos'][] = l10n('Information data registered in database');
@@ -20,6 +21,4 @@ $template->assign(array(
   ));
 
 
-$template->set_filename('Instagram2Piwigo', dirname(__FILE__) . '/template/config.tpl');
-
-?>
+$template->set_filename('Instagram2Piwigo', realpath(INSTAG_PATH . 'admin/template/config.tpl'));

@@ -7,15 +7,15 @@
 <p><input type="submit" onClick="javascript:window.location.href ='{$instagram_login}';" value="{'Login'|@translate}"></p>
 
 {* <!-- MAIN MENU --> *}
-{elseif $ACTION == 'main'}
-{footer_script}{literal}
+{else if $ACTION == 'main'}
+{footer_script}
 jQuery('input[type="submit"]').click(function() {
   window.location.href = $(this).attr("data");
 });
 jQuery('.load').click(function() {
   $("#loader_import").fadeIn();
 });
-{/literal}{/footer_script}
+{/footer_script}
 
 <p>
   <b>{'Logged in as'|@translate}</b> : <a href="{$profile_url}" target="_blank">{$username}</a><br><br>
@@ -29,7 +29,7 @@ jQuery('.load').click(function() {
 </p>
 
 {* <!-- PHOTOS LIST --> *}
-{elseif $ACTION == 'list_photos'}
+{else if $ACTION == 'list_photos'}
 {include file=$INSTAG_ABS_PATH|@cat:'admin/template/import.list_photos.tpl'}
 
 {/if}

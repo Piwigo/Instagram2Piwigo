@@ -8,37 +8,45 @@ Author: Mistic
 Author URI: http://www.strangeplanet.fr
 */
 
-if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
+defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
 global $conf;
 
-define('INSTAG_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
-define('INSTAG_ADMIN', get_root_url() . 'admin.php?page=plugin-' . basename(dirname(__FILE__)));
+define('INSTAG_ID',       basename(dirname(__FILE__)));
+define('INSTAG_PATH',     PHPWG_PLUGINS_PATH . INSTAG_ID . '/');
+define('INSTAG_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . INSTAG_ID);
 define('INSTAG_FS_CACHE', $conf['data_location'].'instagram_cache/');
+define('INSTAG_VERSION',  'auto');
 
+
+include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
+
+
+add_event_handler('init', 'instagram_init');
+add_event_handler('ws_add_methods', 'instagram_add_ws_method');
 
 if (defined('IN_ADMIN'))
 {
   add_event_handler('get_admin_plugin_menu_links', 'instagram_admin_menu');
+
   add_event_handler('get_batch_manager_prefilters', 'instagram_add_batch_manager_prefilters');
   add_event_handler('perform_batch_manager_prefilters', 'instagram_perform_batch_manager_prefilters', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
-  add_event_handler('loc_begin_admin_page', 'instagram_prefilter_from_url');
 
   function instagram_admin_menu($menu) 
   {
-    array_push($menu, array(
+    $menu[] = array(
       'NAME' => 'Instagram2Piwigo',
       'URL' => INSTAG_ADMIN,
-    ));
+      );
     return $menu;
   }
   
   function instagram_add_batch_manager_prefilters($prefilters)
   {
-    array_push($prefilters, array(
+    $prefilters[] = array(
       'ID' => 'instagram',
       'NAME' => l10n('Imported from Instagram'),
-    ));
+      );
     return $prefilters;
   }
 
@@ -56,21 +64,16 @@ if (defined('IN_ADMIN'))
     
     return $filter_sets;
   }
-  
-  function instagram_prefilter_from_url()
-  {
-    global $page;
-    if ($page['page'] == 'batch_manager' && @$_GET['prefilter'] == 'instagram')
-    {
-      $_SESSION['bulk_manager_filter'] = array('prefilter' => 'instagram');
-      unset($_GET['prefilter']);
-    }
-  }
 }
 
 
-include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
+function instagram_init()
+{
+  global $conf;
 
-add_event_handler('ws_add_methods', 'instagram_add_ws_method');
+  include_once(INSTAG_PATH . 'maintain.inc.php');
+  $maintain = new instagram2piwigo_maintain(INSTAG_ID);
+  $maintain->autoUpdate(INSTAG_VERSION, 'install');
 
-?>
+  $conf['Instagram2Piwigo'] = unserialize($conf['Instagram2Piwigo']);
+}
