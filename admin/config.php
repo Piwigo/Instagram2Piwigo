@@ -9,7 +9,7 @@ if (isset($_POST['save_config']))
     );
 
   unset($_SESSION['phpinstagram_auth_token']);
-  conf_update_param('Instagram2Piwigo', serialize($conf['Instagram2Piwigo']));
+  conf_update_param('Instagram2Piwigo', $conf['Instagram2Piwigo']);
   $page['infos'][] = l10n('Information data registered in database');
 }
 
