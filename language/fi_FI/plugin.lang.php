@@ -30,4 +30,14 @@ $lang['List my pictures'] = 'Listaa kuvani';
 $lang['Logged in as'] = 'Kirjautuneena käyttäjänä';
 $lang['Logged out'] = 'Ei kirjautuneena';
 $lang['Photo "%s" imported'] = 'Kuva "%s" tuotu';
-?>
+$lang['%d pictures are not displayed because already existing in the database.'] = '%d kuvaa ei näytetty, koska ne ovat jo tietokannassa.';
+$lang['API not authenticated'] = 'API valtuutusta tekemättä';
+$lang['Fill these fields from Instagram datas'] = 'Täytä nämä kentät Instagrammin tiedoista';
+$lang['How do I get my Instagram Client ID?'] = 'Kuinka saan Instagram Client ID:ni?';
+$lang['Instagram logins'] = 'Instagrammin käyttäjätunnukset';
+$lang['No download method available'] = 'Ei tarjolla olevaa lataustapaa';
+$lang['One picture is not displayed because already existing in the database.'] = 'Yhtä kuvaa ei näytetty, koska se on jo tietokannassa.';
+$lang['Open Instagram page in a new tab'] = 'Avaa Instagram uudella välilehdellä';
+$lang['Please fill your API keys on the configuration tab'] = 'Ole hyvä ja täytä API avaimesi asetukset välilehdellä';
+$lang['Processing...'] = 'Suoritetaan...';
+$lang['Successfully logged in to you Instagram account'] = 'Kirjautuminen Instagram tilillesi onnistui';
