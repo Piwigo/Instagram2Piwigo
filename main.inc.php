@@ -10,11 +10,21 @@ Author URI: http://www.strangeplanet.fr
 
 defined('PHPWG_ROOT_PATH') or die('Hacking attempt!');
 
+if (basename(dirname(__FILE__)) != 'instagram2piwigo')
+{
+  add_event_handler('init', 'instagram_error');
+  function instagram_error()
+  {
+    global $page;
+    $page['errors'][] = 'Instagram2Piwigo folder name is incorrect, uninstall the plugin and rename it to "instagram2piwigo"';
+  }
+  return;
+}
+
 global $conf;
 
-define('INSTAG_ID',       basename(dirname(__FILE__)));
-define('INSTAG_PATH',     PHPWG_PLUGINS_PATH . INSTAG_ID . '/');
-define('INSTAG_ADMIN',    get_root_url() . 'admin.php?page=plugin-' . INSTAG_ID);
+define('INSTAG_PATH',     PHPWG_PLUGINS_PATH . 'instagram2piwigo/');
+define('INSTAG_ADMIN',    get_root_url() . 'admin.php?page=plugin-instagram2piwigo');
 define('INSTAG_FS_CACHE', $conf['data_location'].'instagram_cache/');
 
 include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
