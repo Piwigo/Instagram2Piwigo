@@ -20,27 +20,24 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$lang['Import options'] = 'Import Optionen';
+$lang['Import options'] = 'Import-Optionen';
 $lang['Import'] = 'Importieren';
-$lang['List pictures of this album'] = 'Bilder des Album aufführen';
 $lang['%d albums'] = '%d Alben';
-$lang['%d pictures are not displayed because already existing in the database.'] = '%d Bilder werden nicht angezeigt, existieren schon in der Datenbank';
+$lang['%d pictures are not displayed because already existing in the database.'] = '%d Bilder werden nicht angezeigt, da sie schon in der Datenbank existieren';
 $lang['%d pictures imported'] = '%d Bilder importiert';
 $lang['(%d photos)'] = '(%d Bilder)';
-$lang['API not authenticated'] = 'API nicht bestätigt';
-$lang['Begin transfer'] = 'Starte transfer';
-$lang['Fill these fields from Instagram datas'] = 'Fülle diese Felder mit Instagram Daten';
-$lang['Instagram logins'] = 'Instagram Login´s';
+$lang['API not authenticated'] = 'API nicht authentifiziert';
+$lang['Begin transfer'] = 'Übermittlung starten';
+$lang['Fill these fields from Instagram datas'] = 'Felder mit Instagram-Daten abgleichen';
+$lang['Instagram logins'] = 'Instagram Logins';
 $lang['How do I get my Instagram Client ID?'] = 'Wie bekomme ich meinen Instagram API Schlüssel?';
-$lang['Logged in as'] = 'Login als';
-$lang['No download method available'] = 'Keine Download Methode verfügbar';
-$lang['One picture is not displayed because already existing in the database.'] = 'Bild wird nicht angezeigt, existiert schon in der Datenbank';
-$lang['Open Instagram page in a new tab'] = 'Öffne Instagram Seite in neuem Tab';
-$lang['Please fill your API keys on the configuration tab'] = 'Bitte API Schlüssel auf Konfigurations-Tab eingeben';
+$lang['Logged in as'] = 'Eingeloggt als';
+$lang['No download method available'] = 'Keine Download-Methode verfügbar';
+$lang['One picture is not displayed because already existing in the database.'] = 'Bild wird nicht angezeigt, das es schon in der Datenbank existiert';
+$lang['Open Instagram page in a new tab'] = 'Instagram Seite in neuem Tab öffnen';
+$lang['Please fill your API keys on the configuration tab'] = 'Bitte API Schlüssel auf Konfigurations-Reiter eingeben';
 $lang['Processing...'] = 'Verarbeitung...';
 $lang['Successfully logged in to you Instagram account'] = 'Erfolgreich beim Instagram Konto eingeloggt ';
-$lang['%d elements ready for importation'] = '%d Elemente fertig zum Import';
-$lang['Logged out'] = 'Aus-gelockt ';
+$lang['Logged out'] = 'Ausgeloggt';
 $lang['Photo "%s" imported'] = '"%s" Bilder importiert';
-$lang['List my pictures'] = 'Liste meine Bilder';
-?>
+$lang['List my pictures'] = 'Bilder auflisten';
