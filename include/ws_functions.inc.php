@@ -87,7 +87,7 @@ function ws_images_addInstagram($param, &$service)
   }
   
   // add photo
-  $photo['image_id'] = add_uploaded_file($photo['path'], basename($photo['path']), array($photo['category']));
+  $photo['image_id'] = add_uploaded_file($photo['path'], (explode("&",basename($photo['path'])))[0], array($photo['category']));
   
   // do some updates
   if (!empty($photo['fills']))
