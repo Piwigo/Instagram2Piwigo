@@ -132,7 +132,7 @@ abstract class Instagram_Collection_CollectionAbstract implements IteratorAggreg
      */
     protected function convertData( $object ) {
         $this->data = array_map(
-            create_function( '$c', 'return new '.$object.'( $c );' ),
+            @create_function( '$c', 'return new '.$object.'( $c );' ),
             $this->data
         );
     }
