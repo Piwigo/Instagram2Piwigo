@@ -97,7 +97,7 @@ function ws_images_addInstagram($param, &$service)
   
     $updates = array();
     if (in_array('fill_name', $photo['fills']))   $updates['name'] = pwg_db_real_escape_string($photo['title']);
-    if (in_array('fill_taken', $photo['fills']))  $updates['date_creation'] = $photo['date'];
+	if (in_array('fill_taken', $photo['fills']))  $updates['date_creation'] = date_format(date_create_from_format("Y-d-m H:i:s",$photo['date']),"Y-m-d H:i:s");	
     if (in_array('fill_author', $photo['fills'])) $updates['author'] = pwg_db_real_escape_string($photo['username']);
     if (in_array('fill_geotag', $photo['fills']) and !empty($photo['location']) )
     {
