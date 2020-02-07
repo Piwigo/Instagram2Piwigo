@@ -29,7 +29,7 @@ class Instagram_Collection_TagCollection extends Instagram_Collection_Collection
             $this->data = $raw_data->data;
         }
         elseif( is_array( $raw_data ) ) {
-            $this->data = array_map( create_function( '$t', 'return (object)array( \'name\' => $t );' ), $raw_data );
+			$this->data = array_map( function($t){ return (object)array( "name" => $t ); }, $raw_data );			
         }
         $this->convertData( 'Instagram_Tag' );
     }

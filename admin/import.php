@@ -129,7 +129,7 @@ SELECT id, file
 ;';
     
     $existing_photos = simple_hash_from_query($query, 'id', 'file');
-    $existing_photos = array_map(@create_function('$p', 'return preg_replace("#^'.$instagram_prefix.'([0-9_]+)\.([a-z]{3,4})$#i", "$1", $p);'), $existing_photos);
+	$existing_photos = array_map(function($p) use ($instagram_prefix){return preg_replace('#^'.$instagram_prefix.'([0-9_]+)\.([a-z]{3,4})$#i', "$1", $p);}, $existing_photos);
     
     // remove existing photos
     $duplicates = 0;
@@ -154,7 +154,7 @@ SELECT id, file
     
     // displayed photos
     $page_photos = $all_photos->getSlice($page['start'], $page['display']);
-    $all_elements = array_map(@create_function('$p', 'return  \'"\'.$p->id.\'"\';'), $all_photos->getData());
+	$all_elements = array_map(function($p){return  '"'.$p->id.'"';}, $all_photos->getData());
     
     $tpl_vars = array();
     foreach ($page_photos as $photo)

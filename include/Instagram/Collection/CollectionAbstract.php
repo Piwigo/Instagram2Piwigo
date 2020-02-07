@@ -131,8 +131,22 @@ abstract class Instagram_Collection_CollectionAbstract implements IteratorAggreg
      * @access protected
      */
     protected function convertData( $object ) {
-        $this->data = array_map(
-            @create_function( '$c', 'return new '.$object.'( $c );' ),
+			$this->data = array_map(
+				function($c) use ($object)
+					{ 	
+						switch ($object) 
+								{
+								case "Instagram_Media":
+									return new Instagram_Media($c);
+									break;
+								case "Instagram_Tag":
+									return new Instagram_Tag($c);
+									break;								
+								default: 								
+									error_log( date("Y-m-d H:i:s")." - convertData: case not managed".$object);
+									break;
+								}
+					},
             $this->data
         );
     }
