@@ -20,6 +20,11 @@ $lang['Open Instagram page in a new tab'] = 'Ouvrir la page Instagram dans un no
 $lang['No download method available'] = 'Aucune méthode de téléchargement n\'est disponible';
 $lang['Logged in as'] = 'Indentifié en tant que';
 $lang['Logged out'] = 'Déconnecté';
+$lang['Session expired'] = 'Session expirée';
 $lang['%d elements ready for importation'] = '%d elements prêts à l\'importation';
 $lang['List my pictures'] = 'Lister mes images';
+$lang['Application request limit reached'] = 'limite de quota atteinte';
+$lang['Next Instagram page'] = 'Photos instagram suivantes';
+$lang['Previous Instagram page'] = 'Photos instagram précédentes';
+
 ?>

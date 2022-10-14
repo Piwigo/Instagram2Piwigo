@@ -33,7 +33,7 @@ include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
 $conf['Instagram2Piwigo'] = safe_unserialize($conf['Instagram2Piwigo']);
 
 
-add_event_handler('ws_add_methods', 'instagram_add_ws_method');
+add_event_handler('ws_add_methods', 'instagram_add_ws_methodV2');
 
 if (defined('IN_ADMIN'))
 {

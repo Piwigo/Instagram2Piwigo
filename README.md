@@ -6,6 +6,20 @@
 
 ## Developement status
 
-I do not develop for Piwigo anymore thus I do not maintain this project. I will continue to release new versions containing new translations et any submitted merge requests.
+Tentative de portage vers la nouvelle API Instagram "Basic Display" by Facebook
+pas réussi à faire marcher le retour d'authentification facebook sans mettre une RewriteRule dans le .htaccess
 
-If you want to continue working on the plugin, please open a ticket, I can transfer you the ownership of the repository and the plugin page on http://piwigo.org/ext/
+
+"V0" Globalement fonctionnelle! 
+Seul le mode opératoire et les traductions en français a été mis à jour.
+
+
+##   En l'état nécessite une règle htaccess
+```
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{REQUEST_URI} ^/piwigo/instagram2piwigo-import
+	RewriteCond %{QUERY_STRING} code=(.*)
+	RewriteRule (.*) "/piwigo/admin.php?page=plugin-instagram2piwigo&code=%1" [R,L]
+</IfModule>
+```
