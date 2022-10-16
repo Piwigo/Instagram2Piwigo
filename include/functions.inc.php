@@ -116,9 +116,9 @@ if (!function_exists('download_remote_file'))
  *
  * @param: string 
  */
-if (!function_exists('remove_emoji'))
+if (!function_exists('instaToPiwigo_remove_emoji'))
 {
-	function remove_emoji($string)
+	function instaToPiwigo_remove_emoji($string)
 	{
 		// Match Enclosed Alphanumeric Supplement
 		$regex_alphanumeric = '/[\x{1F100}-\x{1F1FF}]/u';

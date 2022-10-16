@@ -13,9 +13,6 @@ Seul le mode opératoire et les traductions en français a été mis à jour.
 L'authentification instagram n'accepte pas d'autre paramètre que le code d'authentification dans la redirect_uri.
 Pas réussi à faire marcher le retour d'authentification facebook sans mettre une RewriteRule dans le .htaccess pour renvoyer vers le plugins
 
-
-
-
 ##   En l'état une règle htaccess est nécessaire
 ```
 <IfModule mod_rewrite.c>
