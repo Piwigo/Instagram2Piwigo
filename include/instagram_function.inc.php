@@ -4,7 +4,7 @@
       'client_id'     => $conf['Instagram2Piwigo']['api_key'],
       'client_secret' => $conf['Instagram2Piwigo']['secret_key'],
 	  'scope' => 'user_profile,user_media',
-	  'redirect_uri'  => 'https://'.$_SERVER['HTTP_HOST'] .'/piwigo/'.'instagram2piwigo-import',
+	  'redirect_uri'  => get_absolute_root_url().'instagram2piwigo-callback-url',
 	  'authUrl' => 'https://api.instagram.com/oauth/authorize',
 	  'tokenUrl' => 'https://api.instagram.com/oauth/access_token',
 	  'graphApiUrl' => 'https://graph.instagram.com/'
@@ -138,7 +138,7 @@ function instaToPiwigo_GetUserMedia($auth_config, $instagram_access_token, $user
 	$curlGetVar = array(
 	  'fields'     => 'id,media_type,media_url,timestamp,caption,children',
 	  'access_token' => $instagram_access_token,
-	  'limit' => 25
+	  'limit' => 40
 	  );
 	  
 	if(isset($before))

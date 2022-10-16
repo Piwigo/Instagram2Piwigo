@@ -99,7 +99,8 @@ function ws_images_addInstagramV2($param, &$service)
     $photo['fills'] = explode(',', $photo['fills']);
   
     $updates = array();
-    if (in_array('fill_name', $photo['fills']))   $updates['name'] = pwg_db_real_escape_string($photo['title']); //2022-08-06T19:05:01+0000
+	//we remove emoji because mysql utf8_general_ci used by piwigo doesn't support 4-Byte characters
+    if (in_array('fill_name', $photo['fills']))   $updates['name'] = pwg_db_real_escape_string(substr(remove_emoji($photo['title']),0,255)); 
 
 	if (in_array('fill_taken', $photo['fills']))  $updates['date_creation'] = date_format(date_create_from_format("Y-m-d\TH:i:s",substr($photo['date'],0,19)),"Y-m-d H:i:s");	
     if (in_array('fill_author', $photo['fills'])) $updates['author'] = pwg_db_real_escape_string($photo['username']);

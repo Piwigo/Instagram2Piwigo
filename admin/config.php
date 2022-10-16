@@ -17,7 +17,7 @@ if (isset($_POST['save_config']))
 $template->assign(array(
   'Instagram2Piwigo' => $conf['Instagram2Piwigo'],
   'INSTAG_HELP_CONTENT' => load_language('help_api_key.html', INSTAG_PATH, array('return'=>true)),
-  'INSTAG_CALLBACK' => 'https://'.$_SERVER['HTTP_HOST'] . INSTAG_ADMIN . '-import',
+  'INSTAG_CALLBACK' => get_absolute_root_url().'instagram2piwigo-callback-url',
   ));
 
 

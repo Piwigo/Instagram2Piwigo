@@ -319,7 +319,6 @@
       {'Select:'|translate}
     {if $nb_thumbs_set > $nb_thumbs_page}
       <a href="#" id="selectAll">{'The whole page'|translate}</a>,
-      <!-- <a href="#" id="selectSet">{'The whole set'|translate}</a>,-->
     {else}
       <a href="#" id="selectAll">{'All'|translate}</a>,
     {/if}
@@ -373,26 +372,21 @@
   
   <fieldset>
     <legend>{'Import options'|translate}</legend>
-
     <p>
       <label for="albumSelect"><b>{'Album'|translate}:</b></label>
       <select style="width:400px" name="associate" id="albumSelect" size="1">
         {html_options options=$category_parent_options}
       </select>
-      <!-- {'... or '|translate}<a href="#" class="addAlbumOpen" title="{'create a new album'|translate}">{'create a new album'|translate}</a>-->
-   </p>
-    
+   </p>    
     <p>
       <b>{'Fill these fields from Instagram datas'|translate}:</b>
       <label><input type="checkbox" name="fill_name" checked="checked"> {'Photo name'|translate}</label>
       <label><input type="checkbox" name="fill_author" checked="checked"> {'Author'|translate}</label>
       <label><input type="checkbox" name="fill_tags" checked="checked"> {'Tags'|translate}</label>
       <label><input type="checkbox" name="fill_taken" checked="checked"> {'Creation date'|translate}</label>
-      <!--<label><input type="checkbox" name="fill_geotag" checked="checked"> {'Geolocalization'|translate}</label>-->
     </p>
-
     <p>
-      <!-- <input type="hidden" name="album" value="{$album}"> -->
+      
       <input type="submit" name="import_set" id="beginImport" value="{'Begin transfer'|translate}" style="display:none;">
       <span id="loader_import" style="display:none;"><img src="admin/themes/default/images/ajax-loader.gif"> <i>{'Processing...'|translate}</i> <span id="progress"></span></span>
     </p>

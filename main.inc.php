@@ -29,7 +29,6 @@ define('INSTAG_FS_CACHE', $conf['data_location'].'instagram_cache/');
 
 include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
 
-
 $conf['Instagram2Piwigo'] = safe_unserialize($conf['Instagram2Piwigo']);
 
 

@@ -106,7 +106,7 @@ switch ($_GET['action'])
     if (isset($_GET['start']))   $page['start'] = intval($_GET['start']);
     else                         $page['start'] = 0;
     if (isset($_GET['display'])) $page['display'] = $_GET['display']=='all' ? 500 : intval($_GET['display']);
-    else                         $page['display'] = 50;
+    else                         $page['display'] = 70;
     
 	
     $all_photos_page = instaToPiwigo_GetUserMedia($auth_config, $_SESSION['instagram_access_token'], $_SESSION['insta_userid'], $_SESSION['insta_username'],@$_GET['before'],@$_GET['after']);
