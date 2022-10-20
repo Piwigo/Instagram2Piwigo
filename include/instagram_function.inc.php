@@ -111,6 +111,10 @@ function instaToPiwigo_GetUser($auth_config, $instagram_access_token)
 				$_SESSION['page_infos'][] = l10n('Session expired');
 				redirect(INSTAG_ADMIN . '-import');
 			}
+			elseif( $http_code == intval('403') && $error_m['error']['code']== '4')
+			{
+				$_SESSION['page_infos'][] = l10n('Application request limit reached');
+			}
 			else
 			{
 				echo "raw: ".$instaGetUserResponse;

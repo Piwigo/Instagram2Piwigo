@@ -40,7 +40,10 @@ else
   }
   else
   {
-	instaToPiwigo_GetUser($auth_config, $_SESSION['instagram_access_token']);
+	if (empty($_SESSION['insta_username']))
+	{
+		instaToPiwigo_GetUser($auth_config, $_SESSION['instagram_access_token']);		
+	}
 	$username = $_SESSION['insta_username'];
   }
 }

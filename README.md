@@ -13,6 +13,10 @@ Seul le mode opératoire et les traductions en français a été mis à jour.
 L'authentification instagram n'accepte pas d'autre paramètre que le code d'authentification dans la redirect_uri.
 Pas réussi à faire marcher le retour d'authentification facebook sans mettre une RewriteRule dans le .htaccess pour renvoyer vers le plugins
 
+Le plugins détecte les photos déjà téléchargées avec cette nouvelle version du plugins basée sur les nouvelles API.
+Le stock récupéré avec l'ancienne api est ignoré (nom de fichier, id, sum md5: tout est différent)
+
+
 ##   En l'état une règle htaccess est nécessaire
 ```
 <IfModule mod_rewrite.c>

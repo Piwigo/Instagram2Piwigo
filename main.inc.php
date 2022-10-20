@@ -30,6 +30,8 @@ define('INSTAG_FS_CACHE', $conf['data_location'].'instagram_cache/');
 
 include_once(INSTAG_PATH . 'include/ws_functions.inc.php');
 
+load_language('plugin.lang', INSTAG_PATH);
+
 $conf['Instagram2Piwigo'] = safe_unserialize($conf['Instagram2Piwigo']);
 
 
@@ -46,7 +48,7 @@ function instagram_add_batch_manager_prefilters($prefilters)
 {
   $prefilters[] = array(
     'ID' => 'instagram',
-    'NAME' => l10n('Imported from Instagram'),
+    'NAME' => l10n('Imported from Instagram')	
     );
   return $prefilters;
 }

@@ -23,8 +23,11 @@ $lang['Logged out'] = 'Déconnecté';
 $lang['Session expired'] = 'Session expirée';
 $lang['%d elements ready for importation'] = '%d elements prêts à l\'importation';
 $lang['List my pictures'] = 'Lister mes images';
-$lang['Application request limit reached'] = 'limite de quota atteinte';
+$lang['Application request limit reached'] = 'Quota de requètes Instagram atteint';
 $lang['Next Instagram page'] = 'Photos instagram suivantes';
 $lang['Previous Instagram page'] = 'Photos instagram précédentes';
+$lang['Imported from Instagram'] = 'Importées depuis Instagram';
+$lang['How do I get my Instagram Client ID ?'] = 'Comment obtenir mes identifiants Instagram';
+$lang['API Navigation:'] = 'Navigation :';
 
 ?>
