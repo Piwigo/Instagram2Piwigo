@@ -6,6 +6,7 @@ class instagram2piwigo_maintain extends PluginMaintain
   private $default_conf = array(
     'api_key' => null,
     'secret_key' => null,
+	'begin_sync_date' => null,
     );
 
   function install($plugin_version, &$errors=array())
