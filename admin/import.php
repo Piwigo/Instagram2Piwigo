@@ -142,16 +142,26 @@ SELECT id, file
     }
 	
 	$all_photos = $all_photosTMP;	
+	$duplicatesText='';
+	$limitText='';
     
     if ($duplicates>0)
     {
-      $page['infos'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-instagram">'
+       $duplicatesText = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-instagram">'
           .l10n_dec(
             'One picture is not displayed because already existing in the database.',
             '%d pictures are not displayed because already existing in the database.',
             $duplicates)
         .'</a>';
     }
+	if($all_photos_page['limit'])
+	{
+		$limitText = '<br>'.l10n('Importation limit date reached');
+	}
+	if($duplicates> 0 || $all_photos_page['limit'])
+	{
+		$page['infos'][] = $duplicatesText.$limitText;
+	}
     
     // displayed photos
 	$page_photos = array_slice($all_photos,$page['start'], $page['display']);

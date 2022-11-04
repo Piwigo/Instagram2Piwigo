@@ -6,18 +6,18 @@
 
 ## Developement status
 
-Tentative de portage vers la nouvelle API Instagram "Basic Display" by Facebook
-"V0" Globalement fonctionnelle! 
+Portage de l'extantion Instagram2Piwigo vers la nouvelle API Instagram "Basic Display" by Facebook
 Seul le mode opératoire et les traductions en français a été mis à jour.
 
-L'authentification instagram n'accepte pas d'autre paramètre que le code d'authentification dans la redirect_uri.
-Pas réussi à faire marcher le retour d'authentification facebook sans mettre une RewriteRule dans le .htaccess pour renvoyer vers le plugins
+L'authentification instagram n'accepte pas d'autre paramètre que leur code d'authentification dans l'url de redirection.
+En l'état, l'extension nécessite de mettre en place manuellement une RewriteRule dans le .htaccess pour renvoyer vers le plugins (cf. plus bas)
 
 Le plugins détecte les photos déjà téléchargées avec cette nouvelle version du plugins basée sur les nouvelles API.
 Le stock récupéré avec l'ancienne api est ignoré (nom de fichier, id, sum md5: tout est différent)
+L'ajout d'une date dans le paramétrage permet de limiter le problème.
 
 
-##   En l'état une règle htaccess est nécessaire
+##   Rewriterule à ajouter dans le .htaccess
 ```
 <IfModule mod_rewrite.c>
 	RewriteEngine On

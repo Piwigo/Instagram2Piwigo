@@ -3,6 +3,7 @@
   $auth_config = array(
       'client_id'     => $conf['Instagram2Piwigo']['api_key'],
       'client_secret' => $conf['Instagram2Piwigo']['secret_key'],
+	  'begin_sync_date' => $conf['Instagram2Piwigo']['begin_sync_date'],
 	  'scope' => 'user_profile,user_media',
 	  'redirect_uri'  => get_absolute_root_url().'instagram2piwigo-callback-url',
 	  'authUrl' => 'https://api.instagram.com/oauth/authorize',
@@ -168,14 +169,18 @@ function instaToPiwigo_GetUserMedia($auth_config, $instagram_access_token, $user
 		if($http_code == intval(200)){
 
 			$instaGetMediaResponseArray = json_decode($instaGetMediaResponse, true);
-		
-			//var_dump($instaGetMediaResponseArray);
-	
+			$dateLimitReached = false;
 			
-			foreach ($instaGetMediaResponseArray['data'] as $key => $instaMedia){
-					//$instaMediaDetails = instaToPiwigo_GetMediaData($auth_config, $instaMedia['id']);
+			foreach ($instaGetMediaResponseArray['data'] as $key => $instaMedia)
+			{				
+				if(is_array($instaMedia))
+				{
+					//date formatée du média courant
+					$instaMediaDate = date_format(date_create_from_format("Y-m-d\TH:i:s",substr($instaMedia['timestamp'],0,19)),"Y-m-d");
+		
 					
-					if(is_array($instaMedia)){
+					if(is_null($auth_config['begin_sync_date']) || (!is_null($auth_config['begin_sync_date']) && $instaMediaDate > $auth_config['begin_sync_date'] ))
+					{
 						if($instaMedia['media_type'] == "IMAGE")
 						{
 							$instaMedia['filename'] = "intagram-".$user_name.'-'.$instaMedia['id'].".jpg";
@@ -195,8 +200,14 @@ function instaToPiwigo_GetUserMedia($auth_config, $instagram_access_token, $user
 									}									
 								}
 							}					
-						}						 
-					}					
+						}
+					}
+					elseif(!is_null($auth_config['begin_sync_date']) && $instaMediaDate < $auth_config['begin_sync_date'] )
+					{
+						$dateLimitReached = true;
+						break;
+					}
+				}					
 			}			
 			
 		}
@@ -224,13 +235,13 @@ function instaToPiwigo_GetUserMedia($auth_config, $instagram_access_token, $user
 	} finally {
 		curl_close($ch);
 		
-		if(isset($instaGetMediaResponseArray['paging']['next']))
+		if(isset($instaGetMediaResponseArray['paging']['next']) && !$dateLimitReached)
 		{$next = $instaGetMediaResponseArray['paging']['cursors']['after'];}
 	
 		if(isset($instaGetMediaResponseArray['paging']['previous']))
 		{$prev = $instaGetMediaResponseArray['paging']['cursors']['before'];}
 		
-		return array('pics' => $instaImages, 'before' =>$prev, 'after' => $next);		
+		return array('pics' => $instaImages, 'before' =>$prev, 'after' => $next, 'limit' => $dateLimitReached );		
 	}	
 }
 

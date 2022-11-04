@@ -6,6 +6,7 @@ if (isset($_POST['save_config']))
   $conf['Instagram2Piwigo'] = array(
     'api_key' => trim($_POST['api_key']),
     'secret_key' => trim($_POST['secret_key']),
+	'begin_sync_date' => trim($_POST['begin_sync_date']),
     );
 
   unset($_SESSION['phpinstagram_auth_token']);
