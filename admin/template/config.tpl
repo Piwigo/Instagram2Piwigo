@@ -23,6 +23,20 @@
   </ul>
 </fieldset>
 
+
+<fieldset>
+  <legend>{'Sync parameters'|translate}</legend>
+  
+  <ul>
+    <li>
+      <label>
+        <span class="property">{'Sync pics from'|translate}</span>
+        <input type="date" name="begin_sync_date" value="{$Instagram2Piwigo.begin_sync_date}" size="40">
+      </label>
+    </li>
+  </ul>
+</fieldset>
+
 <p><input type="submit" name="save_config" value="{'Save Settings'|translate}"></p>
 
 <fieldset>

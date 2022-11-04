@@ -114,14 +114,17 @@
   }
 
   /* import queue */
-  function performImport(photo, album, fills) {
+  function performImport(photo, titlep, urlp, datep, album, fills) {
     queuedManager.add({
       type: 'GET',
       dataType: 'json',
       url: 'ws.php',
       data: {
-        method: 'pwg.images.addInstagram',
+        method: 'pwg.images.addInstagramV2',
         id: photo,
+		title: titlep,
+	    url: urlp,
+        date: datep,		
         category: album,
         fills: fills,
         format: 'json'
@@ -272,22 +275,13 @@
       fills+= $(this).attr("name") +',';
     }); 
     
-    if ($('input[name="setSelected"]').prop('checked')) {
-      import_selected = all_elements.length;
-      $("#progress").html("0/"+ import_selected);
-      
-      for (var i in all_elements) {
-        performImport(all_elements[i], album, fills);
-      }
-		}
-    else {
-      import_selected = $("input[name='selection[]']:checked").length;
-      $("#progress").html("0/"+ import_selected);
-      
+	  import_selected = $("input[name='selection[]']:checked").length;
+	  $("#progress").html("0/"+ import_selected);
+			
 			$("input[name='selection[]']:checked").each(function() {
-        performImport($(this).attr('value'), album, fills);
-      });
-    }
+		performImport($(this).attr('value'), $(this).data('title'), $(this).data('url'), $(this).data('date'), album, fills);
+	  });
+
     
     return false;
   });
@@ -311,13 +305,20 @@
 
   <fieldset>
     <legend>{'Selection'|translate}</legend>
+	<p id="checkActions">
+	{'API Navigation:'|translate}
+	<b>
+	{if !empty($previousAPIPage)}<a href="admin.php?page=plugin-instagram2piwigo-import&action=list_photos&before={$previousAPIPage}" id="prevPage" >{'Previous Instagram page'|translate}</a>, {/if}
+	{if !empty($nextAPIPage)}<a href="admin.php?page=plugin-instagram2piwigo-import&action=list_photos&after={$nextAPIPage}" id="nextPage">{'Next Instagram page'|translate}</a> {/if}
+	</b>
+	</br>
+	</p>
 
   {if !empty($thumbnails)}
     <p id="checkActions">
       {'Select:'|translate}
     {if $nb_thumbs_set > $nb_thumbs_page}
       <a href="#" id="selectAll">{'The whole page'|translate}</a>,
-      <a href="#" id="selectSet">{'The whole set'|translate}</a>,
     {else}
       <a href="#" id="selectAll">{'All'|translate}</a>,
     {/if}
@@ -340,7 +341,7 @@
 								<img src="{$thumbnail.thumb}" alt="{$thumbnail.title}" title="{$thumbnail.title|@escape:'html'}" class="thumbnail">
 							</span>
 						</span>
-						<input type="checkbox" name="selection[]" value="{$thumbnail.id}">
+						<input type="checkbox" name="selection[]" value="{$thumbnail.id}" data-title="{$thumbnail.title}" data-url="{$thumbnail.url}" data-date="{$thumbnail.date}">
 					</label>
 				</span>
 			</li>
@@ -371,29 +372,25 @@
   
   <fieldset>
     <legend>{'Import options'|translate}</legend>
-
     <p>
       <label for="albumSelect"><b>{'Album'|translate}:</b></label>
       <select style="width:400px" name="associate" id="albumSelect" size="1">
         {html_options options=$category_parent_options}
       </select>
-      {'... or '|translate}<a href="#" class="addAlbumOpen" title="{'create a new album'|translate}">{'create a new album'|translate}</a>
-    </p>
-    
+   </p>    
     <p>
       <b>{'Fill these fields from Instagram datas'|translate}:</b>
       <label><input type="checkbox" name="fill_name" checked="checked"> {'Photo name'|translate}</label>
       <label><input type="checkbox" name="fill_author" checked="checked"> {'Author'|translate}</label>
       <label><input type="checkbox" name="fill_tags" checked="checked"> {'Tags'|translate}</label>
       <label><input type="checkbox" name="fill_taken" checked="checked"> {'Creation date'|translate}</label>
-      <label><input type="checkbox" name="fill_geotag" checked="checked"> {'Geolocalization'|translate}</label>
     </p>
-
     <p>
-      <input type="hidden" name="album" value="{$album}">
+      
       <input type="submit" name="import_set" id="beginImport" value="{'Begin transfer'|translate}" style="display:none;">
       <span id="loader_import" style="display:none;"><img src="admin/themes/default/images/ajax-loader.gif"> <i>{'Processing...'|translate}</i> <span id="progress"></span></span>
     </p>
   </fieldset>
+  
 </form>
 </div>
