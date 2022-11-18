@@ -4,7 +4,7 @@ Plugin Name: Instagram2Piwigo
 Version: 2.0.0
 Description: Import pictures from your instagram account
 Plugin URI: https://piwigo.org/ext/extension_view.php?eid=664
-Author: Mistic
+Author: Mistic, Arno153
 Author URI: http://www.strangeplanet.fr
 Has Settings: true
 */
