@@ -6,8 +6,8 @@
 
 ## Developement status
 
-Portage de l'extantion Instagram2Piwigo vers la nouvelle API Instagram "Basic Display" by Facebook
-Seul le mode opératoire et les traductions en français a été mis à jour.
+Portage de l'extension Instagram2Piwigo vers la nouvelle API Instagram "Basic Display" by Facebook
+Seul le mode opératoire et les traductions en français ont été mis à jour.
 
 L'authentification instagram n'accepte pas d'autre paramètre que leur code d'authentification dans l'url de redirection.
 En l'état, l'extension nécessite de mettre en place manuellement une RewriteRule dans le .htaccess pour renvoyer vers le plugins (cf. plus bas)
