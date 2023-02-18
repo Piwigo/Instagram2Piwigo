@@ -44,7 +44,7 @@ function instaToPiwigo_GetToken($auth_config, $authCode)
 	try {
 		curl_setopt($ch, CURLOPT_URL, $auth_config['tokenUrl']);
 		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $curlPostVar );
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	
@@ -89,7 +89,7 @@ function instaToPiwigo_GetUser($auth_config, $instagram_access_token)
 	try {
 		curl_setopt($ch, CURLOPT_URL, $auth_config['graphApiUrl']."me?".http_build_query($curlGetVar));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
 	
 		$instaGetUserResponse = curl_exec($ch);		
 	
@@ -156,7 +156,7 @@ function instaToPiwigo_GetUserMedia($auth_config, $instagram_access_token, $user
 	try {
 		curl_setopt($ch, CURLOPT_URL, $auth_config['graphApiUrl'].$user_id."/media?".http_build_query($curlGetVar));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
 	
 		$instaGetMediaResponse = curl_exec($ch);		
 	
@@ -260,7 +260,7 @@ function instaToPiwigo_GetCarouselMediaData($auth_config, $instaMediaId, $user_n
 	try {
 		curl_setopt($ch, CURLOPT_URL, $auth_config['graphApiUrl'].$instaMediaId."?".http_build_query($curlGetVar));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
+		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
 	
 		$instaGetMediaDetailResponse = curl_exec($ch);		
 	
