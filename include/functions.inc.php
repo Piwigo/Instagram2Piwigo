@@ -30,7 +30,7 @@ if (!function_exists('download_remote_file'))
       $ch = curl_init();
       
       curl_setopt($ch, CURLOPT_URL, $src);
-	  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
+	  // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //A supprimer - ne devrait pas etre nécessaire sur un serveur configuré correctement
       curl_setopt($ch, CURLOPT_HEADER, false);
       curl_setopt($ch, CURLOPT_HTTPHEADER, array("Accept-language: en"));
       curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)');
