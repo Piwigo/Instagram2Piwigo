@@ -2,7 +2,6 @@
 defined('INSTAG_PATH') or die('Hacking attempt!');
 
 set_time_limit(600);
-
 include_once(INSTAG_PATH . 'include/functions.inc.php');
 
 // check API parameters and connect to instagram
@@ -18,19 +17,14 @@ else if (!function_exists('curl_init'))
 }
 else
 {
+	
+  require_once(INSTAG_PATH . 'include/instagram_function.inc.php');
+    
+	
+	
   // init instagram API
   if (empty($_SESSION['instagram_access_token']))
   {
-    require_once(INSTAG_PATH . 'include/Instagram/Auth.php');
-    
-    $auth_config = array(
-      'client_id'     => $conf['Instagram2Piwigo']['api_key'],
-      'client_secret' => $conf['Instagram2Piwigo']['secret_key'],
-      'redirect_uri'  => get_absolute_root_url() . INSTAG_ADMIN . '-import',
-      );
-    
-    $auth = new Instagram_Auth($auth_config);
-  
     // must authenticate
     if (@$_GET['action'] != 'login')
     {
@@ -40,18 +34,17 @@ else
     // generate token after authentication
     if (!empty($_GET['code']))
     {
-      $_SESSION['instagram_access_token'] = $auth->getAccessToken($_GET['code']);
+      instaToPiwigo_GetToken($auth_config, $_GET['code']);
       $_GET['action'] = 'logued';
     }
   }
   else
   {
-    require_once(INSTAG_PATH . 'include/Instagram/Instagram.php');
-    $instagram = new Instagram($_SESSION['instagram_access_token']);
-    $instagram->enableCache(INSTAG_FS_CACHE);
-    
-    $current_user = $instagram->getCurrentUser();
-    $username = $current_user->getData()->username;
+	if (empty($_SESSION['insta_username']))
+	{
+		instaToPiwigo_GetUser($auth_config, $_SESSION['instagram_access_token']);		
+	}
+	$username = $_SESSION['insta_username'];
   }
 }
 
@@ -60,7 +53,6 @@ if (!isset($_GET['action']))
 {
   $_GET['action'] = 'main';
 }
-
 
 switch ($_GET['action'])
 {
@@ -74,7 +66,7 @@ switch ($_GET['action'])
   // call instagram login procedure
   case 'login':
   {
-    $auth->authorize();
+	instaToPiwigo_Authentifier($auth_config);
     break;
   }
   
@@ -117,10 +109,12 @@ switch ($_GET['action'])
     if (isset($_GET['start']))   $page['start'] = intval($_GET['start']);
     else                         $page['start'] = 0;
     if (isset($_GET['display'])) $page['display'] = $_GET['display']=='all' ? 500 : intval($_GET['display']);
-    else                         $page['display'] = 20;
+    else                         $page['display'] = 70;
     
-    $all_photos = $current_user->getAllMedia();
-    
+	
+    $all_photos_page = instaToPiwigo_GetUserMedia($auth_config, $_SESSION['instagram_access_token'], $_SESSION['insta_userid'], $_SESSION['insta_username'],@$_GET['before'],@$_GET['after']);
+	$all_photos = $all_photos_page['pics'];
+	
     // get existing photos
     $query = '
 SELECT id, file
@@ -129,43 +123,61 @@ SELECT id, file
 ;';
     
     $existing_photos = simple_hash_from_query($query, 'id', 'file');
-    $existing_photos = array_map(create_function('$p', 'return preg_replace("#^'.$instagram_prefix.'([0-9_]+)\.([a-z]{3,4})$#i", "$1", $p);'), $existing_photos);
+	$existing_photos = array_map(function($p) use ($instagram_prefix){return preg_replace('#^'.$instagram_prefix.'([0-9_]+)\.([a-z]{3,4})$#i', "$1", $p);}, $existing_photos);
     
     // remove existing photos
     $duplicates = 0;
+	$all_photosTMP = array();
+	
     foreach ($all_photos as $i => $photo)
     {
-      if (in_array($photo->id, $existing_photos))
+      if (in_array($photo['id'], $existing_photos))
       {
-        $all_photos->unsetItem($i);
         $duplicates++;
       }
+	  else 
+	  {
+		  $all_photosTMP[] =$photo;  
+	  }
     }
+	
+	$all_photos = $all_photosTMP;	
+	$duplicatesText='';
+	$limitText='';
     
     if ($duplicates>0)
     {
-      $page['infos'][] = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-instagram">'
+       $duplicatesText = '<a href="admin.php?page=batch_manager&amp;filter=prefilter-instagram">'
           .l10n_dec(
             'One picture is not displayed because already existing in the database.',
             '%d pictures are not displayed because already existing in the database.',
             $duplicates)
         .'</a>';
     }
+	if($all_photos_page['limit'])
+	{
+		$limitText = '<br>'.l10n('Importation limit date reached');
+	}
+	if($duplicates> 0 || $all_photos_page['limit'])
+	{
+		$page['infos'][] = $duplicatesText.$limitText;
+	}
     
     // displayed photos
-    $page_photos = $all_photos->getSlice($page['start'], $page['display']);
-    $all_elements = array_map(create_function('$p', 'return  \'"\'.$p->id.\'"\';'), $all_photos->getData());
+	$page_photos = array_slice($all_photos,$page['start'], $page['display']);
+	$all_elements = array_map(function($p){return  '"'.$p['id'].'"';}, $all_photos);
     
     $tpl_vars = array();
     foreach ($page_photos as $photo)
     {
       $tpl_vars[] = array(
-        'id' => $photo->id,
-        'title' => $photo->getCaption(),
-        'thumb' => $photo->getThumbnail()->url,
-        'src' => $photo->getLowRes()->url,
-        'url' => $photo->getLink(),
-        );
+        'id' => $photo['id'],
+        'title' => $photo['caption'],
+        'thumb' => $photo['media_url'],
+        'src' => $photo['media_url'],
+        'url' => base64_encode($photo['media_url']),
+		'date' => $photo['timestamp'],
+        );		
     }
     
     $template->assign(array(
@@ -175,6 +187,8 @@ SELECT id, file
       'all_elements' => $all_elements,
       'F_ACTION' => INSTAG_ADMIN.'-import&amp;action=import_set',
       'U_DISPLAY' => $self_url,
+	  'nextAPIPage' => $all_photos_page['after'],
+	  'previousAPIPage' => $all_photos_page['before'],
       ));
       
     // get piwigo categories
@@ -205,7 +219,6 @@ SELECT id, name, uppercats, global_rank
     redirect(INSTAG_ADMIN . '-import');
   }
 }
-
 
 $template->assign('ACTION', $_GET['action']);
 

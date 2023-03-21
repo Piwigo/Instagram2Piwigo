@@ -6,6 +6,7 @@ if (isset($_POST['save_config']))
   $conf['Instagram2Piwigo'] = array(
     'api_key' => trim($_POST['api_key']),
     'secret_key' => trim($_POST['secret_key']),
+	'begin_sync_date' => trim($_POST['begin_sync_date']),
     );
 
   unset($_SESSION['phpinstagram_auth_token']);
@@ -17,8 +18,8 @@ if (isset($_POST['save_config']))
 $template->assign(array(
   'Instagram2Piwigo' => $conf['Instagram2Piwigo'],
   'INSTAG_HELP_CONTENT' => load_language('help_api_key.html', INSTAG_PATH, array('return'=>true)),
-  'INSTAG_CALLBACK' => get_absolute_root_url() . INSTAG_ADMIN . '-import',
+  'INSTAG_CALLBACK' => get_absolute_root_url().'instagram2piwigo-callback-url',
   ));
 
 
-$template->set_filename('Instagram2Piwigo', realpath(INSTAG_PATH . 'admin/template/config.tpl'));
+$template->set_filename('Instagram2Piwigo', realpath(INSTAG_PATH .'/'. 'admin/template/config.tpl'));
